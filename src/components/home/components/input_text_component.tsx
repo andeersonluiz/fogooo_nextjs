@@ -1,20 +1,13 @@
-import SupabaseHandler from "../../../modules/service/api/supabase_handler";
-import { useEffect, useRef, useState } from "react";
-import { Feedback } from "../../../modules/domain/feedback";
-import CardPlayer from "../tile/card_player_tile";
+import { useEffect, useRef } from "react";
 import { Player } from "@/modules/domain/player";
-import LocalData from "@/modules/service/local/local_data";
-import {
-  PlayerContext,
-  usePlayerContext,
-} from "@/modules/context/player_context";
+import { usePlayerContext } from "@/modules/context/player_context";
 import SearchPlayerTile from "../tile/search_player_tile";
 export default function InputTextComponent({
   onChangeData,
   queryResults,
   clearResults,
 }: {
-  onChangeData: (event: any) => void;
+  onChangeData: (event) => void;
   queryResults: Player[];
   clearResults: () => void;
 }) {
@@ -51,7 +44,7 @@ export default function InputTextComponent({
 
       {queryResults.length > 0 && (
         <ul className="absolute z-30 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-[50vh] overflow-y-auto ">
-          {queryResults.map((player, index) => (
+          {queryResults.map((player, _) => (
             <SearchPlayerTile
               key={player.id}
               player={player}

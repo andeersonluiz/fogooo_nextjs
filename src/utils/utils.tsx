@@ -1,6 +1,3 @@
-import { usePlayerContext } from "@/modules/context/player_context";
-import { Player } from "@/modules/domain/player";
-
 export default class MyUtils {
   static now = new Date();
 
@@ -50,7 +47,6 @@ export default class MyUtils {
 
   static calculateTimeLeft() {
     const difference = +this.targetDate - +new Date();
-    let timeLeft = "00:00:00";
     if (difference > 0) {
       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((difference / 1000 / 60) % 60);
@@ -63,7 +59,7 @@ export default class MyUtils {
       return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
 
-    return timeLeft;
+    return "00:00:00";
   }
 
   static generateGif() {

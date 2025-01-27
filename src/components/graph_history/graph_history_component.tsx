@@ -1,4 +1,3 @@
-import { usePlayerContext } from "@/modules/context/player_context";
 import { UserHistory } from "@/modules/domain/user_history";
 import LocalData from "@/modules/service/local/local_data";
 import { useEffect, useState } from "react";
@@ -17,8 +16,8 @@ export default function GraphHistoryComponent() {
   const handleContentClick = (event) => {
     event.stopPropagation();
   };
-  var meanAttempts = 0;
-  var firstVictory = 0;
+  let meanAttempts = 0;
+  let firstVictory = 0;
   useEffect(() => {
     const userHistoryTemp = new LocalData().getUserHistory();
     setUserHistory(userHistoryTemp);
@@ -108,7 +107,7 @@ export default function GraphHistoryComponent() {
                   title: "Minhas estatísticas em #fogooo",
                   text: dataShare,
                 });
-              } catch (error) {
+              } catch {
                 toast.error("Erro ao compartilhar,tente novamente mais tarde");
               }
             } else {

@@ -2,22 +2,10 @@
 
 import InputTextComponent from "@/components/home/components/input_text_component";
 import PlayerInfoComponent from "@/components/home/components/player_info_component";
-import {
-  PlayerContext,
-  PlayerProvider,
-  usePlayerContext,
-} from "@/modules/context/player_context";
+import { usePlayerContext } from "@/modules/context/player_context";
 import { Player } from "@/modules/domain/player";
-import LocalData from "@/modules/service/local/local_data";
-import {
-  Autocomplete,
-  Button,
-  Input,
-  MantineProvider,
-  TextInput,
-} from "@mantine/core";
-import Image from "next/image";
-import { useContext, useEffect, useRef, useState } from "react";
+import { Button, MantineProvider } from "@mantine/core";
+import { useEffect, useState } from "react";
 import logo from "../../public/images/white_logo.png";
 import PlayerHintComponent from "@/components/home/components/player_hint_component";
 import Popup from "@/utils/pop_up";
@@ -25,11 +13,9 @@ import HowToPlayPopUp from "@/components/how_to_play/how_to_play_component";
 import { FaChartArea, FaQuestion } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import GraphHistoryComponent from "@/components/graph_history/graph_history_component";
-import { UserHistory } from "@/modules/domain/user_history";
 import { toast } from "react-hot-toast";
 import FeedbackComponent from "@/components/feedback/feedback_component";
 import WinGameComponent from "@/components/win_game/win_game_component";
-import ConfettiAnimation from "@/components/win_game/component/confetti_animation";
 import MyUtils from "@/utils/utils";
 import Footer from "@/components/footer/footer";
 
@@ -41,7 +27,7 @@ export default function Home() {
   const [winGame, showWinGame] = useState(false);
   const playerContext = usePlayerContext();
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event) => {
     const value = event.target.value;
 
     if (value.length > 0) {
@@ -76,7 +62,7 @@ export default function Home() {
               setShowHowToPlay(false);
             }}
           >
-            <HowToPlayPopUp timeRemaining={30} />
+            <HowToPlayPopUp />
           </Popup>
           <Popup
             isOpen={showGraphHistory}

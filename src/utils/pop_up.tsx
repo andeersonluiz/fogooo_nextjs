@@ -1,5 +1,5 @@
 import ConfettiAnimation from "@/components/win_game/component/confetti_animation";
-import React, { useRef } from "react";
+import React from "react";
 
 const Popup = ({ isOpen, onClose, children, showConffetti = false }) => {
   if (!isOpen) return null;

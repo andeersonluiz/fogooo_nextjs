@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dropdown from "../global/dropdown";
-import LocalData from "@/modules/service/local/local_data";
 import SupabaseHandler from "@/modules/service/api/supabase_handler";
 import { Feedback } from "@/modules/domain/feedback";
 enum TypeFeedback {
@@ -31,7 +30,7 @@ export default function FeedbackComponent({
   const [errors, setErrors] = useState({ subject: "", content: "" });
 
   const handleChange = (event, type: TypeFeedback) => {
-    var data = "";
+    let data = "";
     if (type == TypeFeedback.Subject) {
       data = event;
     } else {
@@ -68,7 +67,7 @@ export default function FeedbackComponent({
 
   const validate = () => {
     const errorsTemp = { subject: "", content: "" };
-    var hasError = false;
+    let hasError = false;
     if (!formData["subject"]) {
       errorsTemp["subject"] = "Selecione um assunto";
       hasError = true;

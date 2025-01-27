@@ -2,7 +2,6 @@
 import {
   createContext,
   ReactNode,
-  RefObject,
   useContext,
   useEffect,
   useRef,
@@ -35,8 +34,8 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
   const [winGame, setWinGame] = useState<boolean | null>(null);
   const [orderNumber, setOrderNumber] = useState("");
 
-  var sortedPlayer = useRef<Player | null>(null);
-  var lastPlayerAdded: Player | null;
+  const sortedPlayer = useRef<Player | null>(null);
+  let lastPlayerAdded: Player | null;
   const localData = localDataRef.current;
   const loadedDataRef = useRef(false);
 
@@ -80,7 +79,7 @@ export const PlayerProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    var guesses = localData.getPlayersGuesses();
+    const guesses = localData.getPlayersGuesses();
     sortedPlayer.current = localData.getSortedPlayer();
 
     setGuessList(guesses);

@@ -1,5 +1,4 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { Player } from "../../domain/player";
 import { Feedback } from "../../domain/feedback";
 
 class SupabaseHandler {
@@ -12,7 +11,7 @@ class SupabaseHandler {
     );
   }
   async getAllPlayers() {
-    var { data, error } = await this.supabase.from("players").select();
+    const { data, error } = await this.supabase.from("players").select();
     if (error) {
       return null;
     }
@@ -20,7 +19,7 @@ class SupabaseHandler {
   }
 
   async getSortedPlayer() {
-    var { data: sortedId, error: errorSortedId } = await this.supabase
+    const { data: sortedId, error: errorSortedId } = await this.supabase
       .from("sortedIds")
       .select()
       .order("order", { ascending: false })
@@ -42,7 +41,7 @@ class SupabaseHandler {
   }
 
   async getOrderNumber() {
-    var { data: sortedId, error } = await this.supabase
+    const { data: sortedId, error } = await this.supabase
       .from("sortedIds")
       .select()
       .order("order", { ascending: false })
@@ -54,7 +53,7 @@ class SupabaseHandler {
   }
 
   async getVersionNumber() {
-    var { data: sortedId, error } = await this.supabase
+    const { data: sortedId, error } = await this.supabase
       .from("version")
       .select()
       .limit(1);
@@ -74,7 +73,7 @@ class SupabaseHandler {
         content: feedback.content,
       });
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }

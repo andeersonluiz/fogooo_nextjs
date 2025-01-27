@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useRef, ReactNode } from "react";
-const SHAPES = ["square", "triangle"];
-const COLOR_DIGIT = "ABCDEF1234567890";
+import React from "react";
 import Confetti from "react-confetti";
 
-export default function ConfettiAnimation({}: {}) {
+export default function ConfettiAnimation() {
   return (
     <div className="absolute z-50 confetti-animation   w-full h-full flex   pointer-events-none">
       <Confetti

@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import gif from "../../../public/gifs/01_01.gif";
-import ConfettiAnimation from "./component/confetti_animation";
+import { useEffect, useState } from "react";
 import { usePlayerContext } from "@/modules/context/player_context";
 import MyUtils from "@/utils/utils";
 import GraphButton from "../graph_history/components/graph_button";

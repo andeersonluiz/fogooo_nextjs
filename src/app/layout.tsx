@@ -4,9 +4,7 @@ import "./globals.css";
 import Injector from "@/components/injection/injector";
 import { PlayerProvider } from "@/modules/context/player_context";
 import bg from "../../public/images/bg_bota.png";
-import Head from "next/head";
 import { Toaster } from "react-hot-toast";
-import Footer from "@/components/footer/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

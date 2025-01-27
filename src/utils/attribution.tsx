@@ -1,7 +1,6 @@
 export class Attribution {
   static generateUrlAttribution(path: string): string {
     const initial = path.split("/").pop()?.substring(0, 2) || "";
-    let value = "";
 
     switch (initial) {
       case "01":
@@ -22,7 +21,7 @@ export class Attribution {
         return "https://www.tiktok.com/@pedrobfr19";
     }
 
-    return value;
+    return "";
   }
 
   static generateNameAttribution(path: string): string {

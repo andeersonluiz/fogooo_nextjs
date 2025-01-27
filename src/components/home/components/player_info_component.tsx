@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import CardPlayer from "../tile/card_player_tile";
 import { usePlayerContext } from "@/modules/context/player_context";
 import CardHeader from "../tile/card_header";
 import { Player } from "@/modules/domain/player";
@@ -17,9 +16,6 @@ export default function PlayerInfoComponent() {
 
   const firstLoad = useRef<boolean>(true);
   const timeoutIds = useRef([]);
-  if (playerContext.guessList == null) {
-    return <p> Carregando...</p>;
-  }
 
   const [flippedData, setFlippedIndex] = useState<boolean[]>(
     Array(6).fill(true)
@@ -180,6 +176,10 @@ export default function PlayerInfoComponent() {
     ];
     return playerData[index];
   };
+
+  if (playerContext.guessList == null) {
+    return <p> Carregando...</p>;
+  }
 
   return (
     <div className={``}>

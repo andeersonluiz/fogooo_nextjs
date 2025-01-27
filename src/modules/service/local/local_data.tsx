@@ -19,7 +19,7 @@ class LocalData {
     try {
       localStorage.setItem(this.versionNumberKey, versionNumber.toString());
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }
@@ -27,9 +27,9 @@ class LocalData {
   getPlayerList(removeGuessData: boolean = false) {
     const result = localStorage.getItem(this.playerListKey);
 
-    var playerData: Player[] = result != null ? JSON.parse(result) : [];
+    let playerData: Player[] = result != null ? JSON.parse(result) : [];
     if (removeGuessData) {
-      var guessIds: number[] = [];
+      let guessIds: number[] = [];
       const guessList = this.getPlayersGuesses();
       guessIds = guessList.map((item) => item.id);
       playerData = playerData.filter((item) => !guessIds.includes(item.id));
@@ -37,11 +37,11 @@ class LocalData {
     return playerData;
   }
 
-  savePlayerList(listPlayer: any[]) {
+  savePlayerList(listPlayer) {
     try {
       localStorage.setItem(this.playerListKey, JSON.stringify(listPlayer));
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }
@@ -51,36 +51,36 @@ class LocalData {
     return result != null ? JSON.parse(result) : null;
   }
 
-  saveSortedPlayer(player: any) {
+  saveSortedPlayer(player) {
     try {
       localStorage.setItem(this.sortedPlayerKey, JSON.stringify(player));
 
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }
 
   addPlayerGuesses(player: Player) {
-    var result = localStorage.getItem(this.playerGuessKey);
+    const result = localStorage.getItem(this.playerGuessKey);
     try {
       if (result == null) {
         const listPlayers = [player];
         localStorage.setItem(this.playerGuessKey, JSON.stringify(listPlayers));
       } else {
-        var listUpdated: Player[] = JSON.parse(result);
+        let listUpdated: Player[] = JSON.parse(result);
         listUpdated = [...listUpdated, player];
         localStorage.setItem(this.playerGuessKey, JSON.stringify(listUpdated));
       }
 
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }
 
   searchPlayer(query: string) {
-    var listPlayers: Player[] = this.getPlayerList(true);
+    const listPlayers: Player[] = this.getPlayerList(true);
 
     const lowerCaseQueryParts = MyUtils.removeAccents(
       query.toLowerCase()
@@ -100,13 +100,13 @@ class LocalData {
   }
 
   getPlayersGuesses(): Player[] {
-    var result = localStorage.getItem(this.playerGuessKey);
+    const result = localStorage.getItem(this.playerGuessKey);
 
     return result != null ? (JSON.parse(result) as Player[]).reverse() : [];
   }
 
   getUserHistory() {
-    var result = localStorage.getItem(this.userHistoryKey);
+    const result = localStorage.getItem(this.userHistoryKey);
     if (result == null) {
       return { streaks: 0, victorys: 0, victoryList: [] };
     } else {
@@ -122,7 +122,7 @@ class LocalData {
       );
 
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }
@@ -164,7 +164,7 @@ class LocalData {
     try {
       localStorage.removeItem(this.playerGuessKey);
       return true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }

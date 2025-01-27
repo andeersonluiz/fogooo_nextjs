@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import SHA256 from "crypto-js/sha256";
 import seedrandom from "seedrandom";
-import {
-  PlayerContext,
-  usePlayerContext,
-} from "@/modules/context/player_context";
+import { usePlayerContext } from "@/modules/context/player_context";
 import Spacer from "@/utils/spacer";
 import MyUtils from "@/utils/utils";
 
 export default function PlayerHintComponent() {
-  var hasEndDicas = true;
-
   const playerContext = usePlayerContext();
   const [hiddenName, setHiddenName] = useState("");
   const [winGame, setWinGame] = useState<boolean | null>(null);
@@ -19,7 +14,7 @@ export default function PlayerHintComponent() {
   const firstLoad = useRef<boolean>(true);
 
   const getHiddenName = () => {
-    var name = playerContext.sortedPlayer.name;
+    let name = playerContext.sortedPlayer.name;
     const count = playerContext.guessList.length;
     const orderStrings = _shuffleName(name).filter((e) => e.trim() !== "");
 
@@ -34,7 +29,6 @@ export default function PlayerHintComponent() {
 
     if (orderStrings.length <= dicas + 1) {
       dicas = orderStrings.length - 1;
-      hasEndDicas = true;
     }
 
     for (let j = 0; j < dicas; j++) {

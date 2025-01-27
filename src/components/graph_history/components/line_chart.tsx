@@ -11,7 +11,7 @@ import {
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
-import { max } from "date-fns";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,7 +28,7 @@ export default function CardLineChart({
   const maxAttempts = Math.max(...victoryInfo.map((item) => item.attempts));
 
   const yMax = Math.ceil(maxAttempts * 1.2);
-  var data = {
+  const data = {
     labels: victoryInfo.map((item) => MyUtils.normalizeDate(item.date)),
     datasets: [
       {

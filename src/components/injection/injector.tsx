@@ -14,13 +14,13 @@ export default function Injector({ children }: InjectorProps) {
     const localData = new LocalData();
     const loadData = async () => {
       setIsLoading(true);
-      var versionNumberResult = await supabase_handler.getVersionNumber();
+      const versionNumberResult = await supabase_handler.getVersionNumber();
 
       if (versionNumberResult != null) {
         const oldVersionNumber = localData.getVersionNumber();
         if (oldVersionNumber != versionNumberResult) {
           console.warn("new version detected");
-          var playersList = await supabase_handler.getAllPlayers();
+          const playersList = await supabase_handler.getAllPlayers();
           if (playersList != null) {
             localData.savePlayerList(playersList!);
             localData.saveVersionNumber(versionNumberResult);
@@ -32,10 +32,10 @@ export default function Injector({ children }: InjectorProps) {
         console.error("error: versionNumberResult");
       }
 
-      var sortedPlayer = await supabase_handler.getSortedPlayer();
+      const sortedPlayer = await supabase_handler.getSortedPlayer();
 
       if (sortedPlayer != null) {
-        var localSortedPlayer = localData.getSortedPlayer();
+        const localSortedPlayer = localData.getSortedPlayer();
         if (
           localSortedPlayer == null ||
           sortedPlayer.id != localSortedPlayer.id
