@@ -1,0 +1,10 @@
+{
+  "files.readonlyInclude": {
+    "**": false
+  },
+  "files.readonlyExclude": {
+    "lib/flutter_flow/custom_functions.dart": true,
+    "lib/flutter_flow/function_changes.json": true,
+    "pubspec.yaml": true
+  }
+}

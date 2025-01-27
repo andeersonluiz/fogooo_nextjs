@@ -1,101 +1,183 @@
+"use client";
+
+import InputTextComponent from "@/components/home/components/input_text_component";
+import PlayerInfoComponent from "@/components/home/components/player_info_component";
+import {
+  PlayerContext,
+  PlayerProvider,
+  usePlayerContext,
+} from "@/modules/context/player_context";
+import { Player } from "@/modules/domain/player";
+import LocalData from "@/modules/service/local/local_data";
+import {
+  Autocomplete,
+  Button,
+  Input,
+  MantineProvider,
+  TextInput,
+} from "@mantine/core";
 import Image from "next/image";
+import { useContext, useEffect, useRef, useState } from "react";
+import logo from "../../public/images/white_logo.png";
+import PlayerHintComponent from "@/components/home/components/player_hint_component";
+import Popup from "@/utils/pop_up";
+import HowToPlayPopUp from "@/components/how_to_play/how_to_play_component";
+import { FaChartArea, FaQuestion } from "react-icons/fa";
+import { MdFeedback } from "react-icons/md";
+import GraphHistoryComponent from "@/components/graph_history/graph_history_component";
+import { UserHistory } from "@/modules/domain/user_history";
+import { toast } from "react-hot-toast";
+import FeedbackComponent from "@/components/feedback/feedback_component";
+import WinGameComponent from "@/components/win_game/win_game_component";
+import ConfettiAnimation from "@/components/win_game/component/confetti_animation";
+import MyUtils from "@/utils/utils";
+import Footer from "@/components/footer/footer";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [queryResults, setQueryResults] = useState<Player[]>([]);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showGraphHistory, setShowGraphHistory] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [winGame, showWinGame] = useState(false);
+  const playerContext = usePlayerContext();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const handleInputChange = (event: any) => {
+    const value = event.target.value;
+
+    if (value.length > 0) {
+      setQueryResults(playerContext.searchPlayer(value));
+    } else {
+      setQueryResults([]);
+    }
+  };
+
+  useEffect(() => {
+    if (playerContext.winGame) {
+      showWinGame(playerContext.winGame);
+    }
+  }, [playerContext.winGame]);
+
+  useEffect(() => {
+    setInterval(() => {
+      if (MyUtils.calculateTimeLeft() == "00:00:00") {
+        window.location.reload();
+      }
+    }, 1000);
+  }, []);
+
+  return (
+    <div className=" h-full flex flex-1 flex-col">
+      <main className="flex flex-col ">
+        <MantineProvider>
+          <Popup
+            isOpen={showHowToPlay}
+            onClose={() => {
+              document.body.style.overflow = "auto";
+              setShowHowToPlay(false);
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            <HowToPlayPopUp timeRemaining={30} />
+          </Popup>
+          <Popup
+            isOpen={showGraphHistory}
+            onClose={() => {
+              document.body.style.overflow = "auto";
+              setShowGraphHistory(false);
+            }}
+          >
+            <GraphHistoryComponent />
+          </Popup>
+          <Popup
+            isOpen={showFeedback}
+            onClose={() => {
+              document.body.style.overflow = "auto";
+              setShowFeedback(false);
+            }}
+          >
+            <FeedbackComponent
+              onClose={() => {
+                document.body.style.overflow = "auto";
+                setShowFeedback(false);
+                toast.success(
+                  "Feedback enviado com sucesso. Obrigado por nos ajudar a melhorar cada vez mais!!"
+                );
+              }}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </Popup>
+
+          <Popup
+            isOpen={winGame}
+            showConffetti={true}
+            onClose={() => {
+              document.body.style.overflow = "auto";
+              showWinGame(false);
+            }}
           >
-            Read our docs
-          </a>
-        </div>
+            <WinGameComponent />
+          </Popup>
+          <div className="flex justify-center p-8   ">
+            <img src={logo.src} className="w-80 " />
+          </div>
+
+          <div className="flex gap-4 mb-6 justify-center space-x-3">
+            <Button
+              onClick={() => {
+                document.body.style.overflow = "hidden";
+                setShowHowToPlay(true);
+              }}
+              className="p-4 items-center bg-white text-white rounded-full"
+            >
+              <FaQuestion color="black" size={20} />
+            </Button>
+
+            <Button
+              onClick={() => {
+                document.body.style.overflow = "hidden";
+                setShowGraphHistory(true);
+              }}
+              className={`p-4 items-center bg-white  text-white rounded-full`}
+            >
+              <FaChartArea color="black" size={20} />
+            </Button>
+            <Button
+              onClick={() => {
+                document.body.style.overflow = "hidden";
+                setShowFeedback(true);
+              }}
+              className="p-4 items-center bg-white text-white rounded-full"
+            >
+              <MdFeedback color="black" size={20} />
+            </Button>
+          </div>
+
+          <div className="flex w-full  items-center justify-center">
+            <PlayerHintComponent />
+          </div>
+          {!playerContext.winGame && (
+            <div className="flex w-full  items-center justify-center px-8 ">
+              <InputTextComponent
+                onChangeData={handleInputChange}
+                queryResults={queryResults}
+                clearResults={() => setQueryResults([])}
+              />
+            </div>
+          )}
+          {!playerContext.isLoading && playerContext.guessList.length == 0 && (
+            <div className="flex justify-center  w-full pt-4 px-8 ">
+              <p className=" border-gray-300    border-2 p-6 max-w-[500px] w-full text-center rounded-2xl bg-black bg-opacity-50">
+                Mais 5 tentativas para dica
+              </p>
+            </div>
+          )}
+
+          <div className="w-full overflow-x-auto flex justify-start md:justify-center px-8 ">
+            <PlayerInfoComponent />
+          </div>
+        </MantineProvider>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 }

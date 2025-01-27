@@ -1,0 +1,70 @@
+import SupabaseHandler from "../../../modules/service/api/supabase_handler";
+import { useEffect, useRef, useState } from "react";
+import { Feedback } from "../../../modules/domain/feedback";
+import CardPlayer from "../tile/card_player_tile";
+import { Player } from "@/modules/domain/player";
+import LocalData from "@/modules/service/local/local_data";
+import {
+  PlayerContext,
+  usePlayerContext,
+} from "@/modules/context/player_context";
+import SearchPlayerTile from "../tile/search_player_tile";
+export default function InputTextComponent({
+  onChangeData,
+  queryResults,
+  clearResults,
+}: {
+  onChangeData: (event: any) => void;
+  queryResults: Player[];
+  clearResults: () => void;
+}) {
+  const divRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const playerContext = usePlayerContext();
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (divRef.current && !divRef.current.contains(event.target as Node)) {
+        clearResults();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  if (playerContext.isLoading && !playerContext.loadedData) {
+    return <div></div>;
+  }
+
+  return (
+    <div ref={divRef} className="max-w-[500px] w-full relative  ">
+      <input
+        ref={inputRef}
+        type="text"
+        onChange={onChangeData}
+        onClick={onChangeData}
+        placeholder="Buscar jogador..."
+        className="w-full text-gray-500 p-2  border rounded-md shadow-sm focus:outline-none focus:ring-2 h-[50px]  bg-white  focus:ring-black "
+      ></input>
+
+      {queryResults.length > 0 && (
+        <ul className="absolute z-30 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-[50vh] overflow-y-auto ">
+          {queryResults.map((player, index) => (
+            <SearchPlayerTile
+              key={player.id}
+              player={player}
+              onClick={() => {
+                clearResults();
+                inputRef.current!.value = "";
+                playerContext.addGuessList(player);
+              }}
+            />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+/*{data != null && <CardPlayer />}*/

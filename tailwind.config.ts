@@ -11,6 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        customBlue: "#1E90FF",
+      },
+      screens: {
+        mmg: "885px",
+      },
+      letterSpacing: {
+        custom: "0.2em",
       },
     },
   },
