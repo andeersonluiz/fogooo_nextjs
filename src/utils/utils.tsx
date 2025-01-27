@@ -171,6 +171,6 @@ export default class MyUtils {
       result += "";
     }
 
-    return `https://x.com/intent/tweet?text=Ganhei no %23fogooo %23${playerContext.orderNumber} em ${guessList.length} tentativas.%0a%0a${result}%0a%0aJogue %23fogooo em: https://foogooo.com  %0a%0a%23Botafogo %23TempoDeBotafogo %23fogooo %23wordle %23VamosBOTAFOGO %23BFR`;
+    return `https://x.com/intent/tweet?text=Ganhei no %23fogooo %23${playerContext.orderNumber} em ${guessList.length} tentativas.%0a%0a${result}%0a%0aJogue %23fogooo em: https://fogooo.vercel.app  %0a%0a%23Botafogo %23TempoDeBotafogo %23fogooo %23wordle %23VamosBOTAFOGO %23BFR`;
   }
 }

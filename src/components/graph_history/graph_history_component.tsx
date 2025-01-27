@@ -39,9 +39,9 @@ export default function GraphHistoryComponent() {
   if (userHistory == null) {
     return <div />;
   }
-  const dataCopy = `Minhas estatísticas em fogooo:\n✌️ Vitórias: ${userHistory.victorys}\n🤓 Média de adivinhações: ${meanAttempts}\n🥇 De primeira: ${firstVictory}\n🔥 Sequência de vitórias: ${userHistory.streaks}\n\nJogue #fogooo em: https://foogooo.com \n\n #Botafogo #TempoDeBotafogo #fogooo #wordle #VamosBOTAFOGO #BFR `;
-  const dataShareX = `Minhas estatísticas em %23fogooo:%0a✌️ Vitórias: ${userHistory.victorys}%0a🤓 Média de adivinhações: ${meanAttempts}%0a🥇 De primeira: ${firstVictory}%0a🔥 Sequência de vitórias: ${userHistory.streaks}%0aJogue %23fogooo em: https://foogooo.com %0a%0a %23Botafogo %23TempoDeBotafogo %23fogooo %23wordle %23VamosBOTAFOGO %23BFR`;
-  const dataShare = `Minhas estatísticas em fogooo:\n✌️ Vitórias: ${userHistory.victorys}\n🤓 Média de adivinhações: ${meanAttempts}\n🥇 De primeira: ${firstVictory}\n🔥 Sequência de vitórias: ${userHistory.streaks}\n\nJogue #fogooo em: https://foogooo.com`;
+  const dataCopy = `Minhas estatísticas em fogooo:\n✌️ Vitórias: ${userHistory.victorys}\n🤓 Média de adivinhações: ${meanAttempts}\n🥇 De primeira: ${firstVictory}\n🔥 Sequência de vitórias: ${userHistory.streaks}\n\nJogue #fogooo em: https://fogooo.vercel.app \n\n #Botafogo #TempoDeBotafogo #fogooo #wordle #VamosBOTAFOGO #BFR `;
+  const dataShareX = `Minhas estatísticas em %23fogooo:%0a✌️ Vitórias: ${userHistory.victorys}%0a🤓 Média de adivinhações: ${meanAttempts}%0a🥇 De primeira: ${firstVictory}%0a🔥 Sequência de vitórias: ${userHistory.streaks}%0aJogue %23fogooo em: https://fogooo.vercel.app %0a%0a %23Botafogo %23TempoDeBotafogo %23fogooo %23wordle %23VamosBOTAFOGO %23BFR`;
+  const dataShare = `Minhas estatísticas em fogooo:\n✌️ Vitórias: ${userHistory.victorys}\n🤓 Média de adivinhações: ${meanAttempts}\n🥇 De primeira: ${firstVictory}\n🔥 Sequência de vitórias: ${userHistory.streaks}\n\nJogue #fogooo em: https://fogooo.vercel.app`;
 
   return (
     <div
