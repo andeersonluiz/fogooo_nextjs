@@ -110,13 +110,13 @@ export default class MyUtils {
     const sortedPlayer = playerContext.sortedPlayer;
     const guessList = playerContext.guessList;
 
-    for (const item of [...guessList].reverse()) {
+    for (const item of guessList) {
       if (count > 5) {
         extra += 1;
         continue;
       }
 
-      if (item.nationality === sortedPlayer.nationality) {
+      if (item.nationality.id === sortedPlayer.nationality.id) {
         result += "🟩";
       } else {
         result += "🟥";
